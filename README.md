@@ -9,7 +9,7 @@ class NewsApp:
 
     def __init__(self):
        self.data = requests.get('https://newsapi.org/v2/top-headlines?country=in&apiKey=f5960ab2e0b541469775981f155b0c5b').json()
-       # print(data)
+        print(data)
        self.load_gui()
        self.load_news_item(0)
         
@@ -23,19 +23,19 @@ class NewsApp:
             i.destroy()
     def load_news_item(self,index):
         self.clear()
-        #try:
-           # img_url=self.data["articles"][index]['urlToImage']
-            #raw_data = urlopen(img_url).read()
-           # im=Image.open(io.BytesIO(raw_data)).resize((350,250))
-           # photo=ImageTk.PhotoImage(im)
-        #except:
-           # img_url='https://static.vecteezy.com/system/resources/previews/005/337/799/original/icon-image-not-found-free-vector.jpg'
-           # raw_data = urlopen(img_url).read()
-           # im=Image.open(io.BytesIO(raw_data)).resize((350,250))
-           # photo=ImageTk.PhotoImage(im)
+        try:
+           img_url=self.data["articles"][index]['urlToImage']
+            raw_data = urlopen(img_url).read()
+            im=Image.open(io.BytesIO(raw_data)).resize((350,250))
+            photo=ImageTk.PhotoImage(im)
+        except:
+            img_url='https://static.vecteezy.com/system/resources/previews/005/337/799/original/icon-image-not-found-free-vector.jpg'
+            raw_data = urlopen(img_url).read()
+            im=Image.open(io.BytesIO(raw_data)).resize((350,250))
+            photo=ImageTk.PhotoImage(im)
 
-        #label= Label(self.root,image=photo)
-        #label.pack()
+        label= Label(self.root,image=photo)
+        label.pack()
 
         heading= Label(self.root,text=self.data["articles"][index]['title'],bg='black',fg='white',wraplength=350,justify='center')
         heading.pack(pady=(10,20))
